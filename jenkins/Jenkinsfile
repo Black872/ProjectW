@@ -1,42 +1,26 @@
 pipeline {
     agent any
-    
+    environment {
+        CC = 'clang'
+    }
 
     stages {
         stage('Build') {
+            environment {
+                DEBUG_FLAGS = '-g'
+            }
             steps {
                 echo 'git status'
                 echo 'Start Ansible playbook..'
                 echo 'Complete.'
                 echo '------------------------'
-                sh 'make' 
-                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                sh 'printenv'
                 
             
             }
 
         }
-        stage('Test') {
-            steps {
-                echo 'Start Integration Test..'
-                echo 'Test Complete'
-                echo '------------------------'
-                echo 'Start Unit Test..'
-                echo 'Test Complete'
-                echo '------------------------'
-                
-            }
-
-        }
-        stage('Prod') {
-            steps {
-                echo 'Deploy to prod..'
-                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
-                echo 'Complete'
-                echo '------------------------'
-
-            }
-        }
+        
 
     }
 }
