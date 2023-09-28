@@ -9,6 +9,8 @@ pipeline {
                 echo 'Start Ansible playbook..'
                 echo 'Complete.'
                 echo '------------------------'
+                sh 'make' 
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                 
             
             }
