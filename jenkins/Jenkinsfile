@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+    parameters {
+
+    }
+
+    environment {
+        
+    }
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+}
