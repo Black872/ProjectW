@@ -1,15 +1,11 @@
 pipeline {
-    agent 
-        node {
-            any
-            checkout scm
-        }
+    agent any
     
 
     stages {
         stage('Build') {
             steps {
-                echo 'git clone'
+                echo 'git status'
                 echo 'Start Ansible playbook..'
                 echo 'Complete.'
                 echo '------------------------'
