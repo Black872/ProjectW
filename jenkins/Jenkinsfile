@@ -28,14 +28,7 @@ pipeline {
         stage('Prod') {
             steps {
                 echo 'Deploy to prod..'
-                when {
-                    expression {
-                        currentBuild.result == null || currentBuild.result == 'SUCCESS'
-                    }
-                }
-                steps {
-                    sh 'make publish'
-                }
+                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
                 echo 'Complete'
                 echo '------------------------'
 
