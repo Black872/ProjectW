@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'git clone'
                 echo 'Start Ansible playbook..'
-                echo 'Complete'
+                echo 'Complete.'
                 echo '------------------------'
             }
 
