@@ -8,10 +8,32 @@ pipeline {
         
     }
     stages {
-        stage('Hello') {
+        stage('Dev') {
             steps {
-                echo 'Hello World'
+                echo 'git clone'
+                echo 'Start Ansible playbook..'
+                echo 'Complete'
+                echo '------------------------'
+            }
+
+        }
+        stage('Test') {
+            steps {
+                echo 'Start Integration Test..'
+                echo 'Test Complete'
+                echo '------------------------'
+                echo 'Start Unit Test..'
+                echo 'Test Complete'
+                echo '------------------------'
             }
         }
+        stage('Prod') {
+            steps {
+                echo 'Deploy to prod..'
+                echo 'Complete'
+                echo '------------------------'
+            }
+        }
+
     }
 }
