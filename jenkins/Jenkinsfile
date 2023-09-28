@@ -2,13 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Dev') {
+        stage('Build') {
             steps {
                 echo 'git clone'
                 echo 'Start Ansible playbook..'
                 echo 'Complete.'
                 echo '------------------------'
-                echo 'Running $env.BUILD_ID on $env.JENKINS_URL'
+                sh 'make'
+            
             }
 
         }
@@ -20,13 +21,24 @@ pipeline {
                 echo 'Start Unit Test..'
                 echo 'Test Complete'
                 echo '------------------------'
+                
             }
+
         }
         stage('Prod') {
             steps {
                 echo 'Deploy to prod..'
+                when {
+                    expression {
+                        currentBuild.result == null || currentBuild.result == 'SUCCESS'
+                    }
+                }
+                steps {
+                    sh 'make publish'
+                }
                 echo 'Complete'
                 echo '------------------------'
+
             }
         }
 
