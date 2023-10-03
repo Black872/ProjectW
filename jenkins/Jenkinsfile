@@ -9,12 +9,14 @@ pipeline {
             
             steps {
                 sh 'rm -r ~/gclone'
+                sh 'sleep 5'
                 sh 'mkdir gclone'
                 echo 'git status'
                 echo 'Start Ansible playbook..'
                 sh 'git clone -b test git@github.com:Black872/ProjectW.git ~/gclone'
                 sh 'ls -la'
                 echo 'Complete.'
+                sh 'sleep 5'
                 echo '------------------------'
                 sh 'rm -r ~/gclone'
                 echo "Build Id: ${BUILD_ID}"
