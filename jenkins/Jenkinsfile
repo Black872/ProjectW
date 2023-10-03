@@ -11,6 +11,7 @@ pipeline {
         )}"""
     }
     options {
+    // Timeout counter starts AFTER agent is allocated
         timeout(time: 5, unit: 'SECONDS')
     }
 
@@ -25,6 +26,7 @@ pipeline {
                 echo 'Complete.'
                 echo '------------------------'
                 sh 'printenv'
+                echo 'Version 1'
                 
             
             }
