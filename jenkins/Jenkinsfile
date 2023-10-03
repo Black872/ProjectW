@@ -9,11 +9,13 @@ pipeline {
             
             steps {
                 echo 'git status'
-                echo 'Start Ansible playbook..'
+                echo 'git clone start'
                 sh 'git clone -b test git@github.com:Black872/ProjectW.git ~/gclone'
                 sh 'ls -la'
-                echo 'Complete.'
-                sh 'sleep 5'
+                echo 'Start Ansible playbook..'
+                sh 'ansible-playbook gclone/ansible/playbook.yml'
+                echo 'Complete'
+                sh 'sleep 2'
                 echo '------------------------'
                 sh 'rm -r ~/gclone'
                 echo "Build Id: ${BUILD_ID}"
