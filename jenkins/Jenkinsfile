@@ -15,8 +15,8 @@ pipeline {
                 echo 'Complete.'
                 echo '------------------------'
                 sh 'rm -rf ~/gclone/*'
-                sh 'rm -rf .git'
-                echo 'Build Id: ${BUILD_ID}'
+                sh 'rm -rf *.*'
+                echo 'Build Id: "${BUILD_ID}"'
                 
             
             }
