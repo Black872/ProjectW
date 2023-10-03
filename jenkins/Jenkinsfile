@@ -8,8 +8,6 @@ pipeline {
         stage('Build') {
             
             steps {
-                sh 'rm -r ~/gclone'
-                sh 'sleep 5'
                 sh 'mkdir gclone'
                 echo 'git status'
                 echo 'Start Ansible playbook..'
