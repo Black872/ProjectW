@@ -8,7 +8,7 @@ pipeline {
         stage('Build') {
             
             steps {
-                sh 'rm -rf ~/gclone'
+                sh 'rm -r ~/gclone'
                 sh 'mkdir gclone'
                 echo 'git status'
                 echo 'Start Ansible playbook..'
@@ -16,7 +16,7 @@ pipeline {
                 sh 'ls -la'
                 echo 'Complete.'
                 echo '------------------------'
-                sh 'rm -rf ~/gclone'
+                sh 'rm -r ~/gclone'
                 echo "Build Id: ${BUILD_ID}"
                 
             
