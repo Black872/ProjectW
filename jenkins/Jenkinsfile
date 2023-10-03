@@ -10,10 +10,11 @@ pipeline {
             steps {
                 echo 'git status'
                 echo 'Start Ansible playbook..'
-                sh 'git clone -b test git@github.com:Black872/ProjectW.git'
+                sh 'git clone -b test git@github.com:Black872/ProjectW.git ~/gclone'
                 sh 'ls -la'
                 echo 'Complete.'
                 echo '------------------------'
+                sh 'rm -rf '
                 echo 'Build Id: $BUILD_ID'
                 
             
