@@ -8,14 +8,14 @@ pipeline {
         stage('Build') {
             
             steps {
+                sh 'mkdir gclone'
                 echo 'git status'
                 echo 'Start Ansible playbook..'
                 sh 'git clone -b test git@github.com:Black872/ProjectW.git ~/gclone'
                 sh 'ls -la'
                 echo 'Complete.'
                 echo '------------------------'
-                sh 'rm -rf ~/gclone/*'
-                sh 'rm -rf .*'
+                sh 'rm -rf ~/gclone'
                 echo 'Build Id: "${BUILD_ID}"'
                 
             
