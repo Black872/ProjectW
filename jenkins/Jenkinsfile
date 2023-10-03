@@ -13,7 +13,7 @@ pipeline {
                 sh 'git clone -b test git@github.com:Black872/ProjectW.git ~/gclone'
                 sh 'ls -la'
                 echo 'Start Ansible playbook..'
-                sh 'ansible-playbook gclone/ansible/playbook.yml'
+                sh 'ansible-playbook ~/gclone/ansible/playbook.yml'
                 echo 'Complete'
                 sh 'sleep 2'
                 echo '------------------------'
