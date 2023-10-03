@@ -1,15 +1,6 @@
 pipeline {
     agent any
-    environment {
-        CC = """${sh(
-                returnStdout: true,
-                script: 'echo "clang"'
-        )}"""
-        EXIT_STATUS = """${sh(
-            returnStatus: true,
-            script: 'exit 1'
-        )}"""
-    }
+
     options {
     // Timeout counter starts AFTER agent is allocated
         timeout(time: 5, unit: 'SECONDS')
@@ -17,12 +8,12 @@ pipeline {
 
     stages {
         stage('Build') {
-            environment {
-                DEBUG_FLAGS = '-g'
-            }
+            
             steps {
                 echo 'git status'
                 echo 'Start Ansible playbook..'
+                sh 'git clone -b test git@github.com:Black872/ProjectW.git'
+                sh 'ls -la'
                 echo 'Complete.'
                 echo '------------------------'
                 sh 'printenv'
