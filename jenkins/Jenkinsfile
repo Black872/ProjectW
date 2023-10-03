@@ -14,7 +14,7 @@ pipeline {
                 sh 'ls -la'
                 echo 'Complete.'
                 echo '------------------------'
-                sh 'rm -rf ~/gclone/* -y'
+                sh 'rm -rf ~/gclone/*'
                 echo 'Build Id: $BUILD_ID'
                 
             
