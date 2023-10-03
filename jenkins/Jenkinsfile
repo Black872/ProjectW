@@ -3,7 +3,7 @@ pipeline {
 
     options {
     // Timeout counter starts AFTER agent is allocated
-        timeout(time: 5, unit: 'SECONDS')
+        timeout(time: 3, unit: 'SECONDS')
     }
 
     stages {
@@ -16,7 +16,6 @@ pipeline {
                 sh 'ls -la'
                 echo 'Complete.'
                 echo '------------------------'
-                sh 'printenv'
                 echo 'Version 1'
                 
             
