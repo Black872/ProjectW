@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-10-04T16:07:59.724Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0" etag="MQaC03qFlOJqShgg_D-U" version="22.0.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-10-04T16:11:48.069Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/118.0" etag="7oaJJAJjHB_voTeKIe4x" version="22.0.2" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="650" dy="379" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -53,12 +53,6 @@
         <mxCell id="q56kLn3UeSaLMW3TXKS6-10" value="&lt;div&gt;Error if job failed(Playbook failed) e-mail&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="314" y="70" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="q56kLn3UeSaLMW3TXKS6-14" value="Ansible Playbook" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="290" y="210" width="120" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="q56kLn3UeSaLMW3TXKS6-20" value="2" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="314" y="180" width="30" height="30" as="geometry" />
-        </mxCell>
         <mxCell id="COT2bdgGY7GaAawzTkY8-2" value="&lt;div&gt;Monitoring server&lt;/div&gt;&lt;div&gt;Grafana + Prometheus + Alert Manager&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fontSize=12;glass=0;strokeWidth=1;shadow=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
           <mxGeometry x="544" y="534" width="120" height="66" as="geometry" />
         </mxCell>
@@ -92,8 +86,8 @@
             <mxPoint x="520" y="450" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="7B2e6sJQHzPaA60l6zBj-11" value="Prometheus&lt;br&gt;1.Response code 200&lt;br&gt;2.HTTP/TCP Probs Duration&lt;br&gt;3.SSL Expired check&lt;br&gt;4.CPU/RAM Load&lt;br&gt;5.DNS Resloving&lt;br&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="600" y="605" width="180" height="100" as="geometry" />
+        <mxCell id="7B2e6sJQHzPaA60l6zBj-11" value="Prometheus&lt;br&gt;1.Response code 200(BlackBox)&lt;br&gt;2.HTTP/TCP Probs Duration(BlackBox)&lt;br&gt;3.SSL Expired check (BlackBox)&lt;br&gt;4.CPU/RAM Load(Node Exporter)&lt;br&gt;5.DNS Resloving(BlackBox)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="610" y="605" width="230" height="100" as="geometry" />
         </mxCell>
         <mxCell id="7B2e6sJQHzPaA60l6zBj-12" value="Grafana&lt;br&gt;1.Prometheus Black box exporter dashboard" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="360" y="605" width="260" height="40" as="geometry" />
