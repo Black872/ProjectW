@@ -1,10 +1,14 @@
 ---
 # tasks file for deployment
+
 - name: Check and output OS version
   debug: var=ansible_os_family
 - block:
-    - name: index update
-      apt: update -y
+    - name: Index update
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 3600
     - name: Install Apache2
       apt:
         name: apache2
