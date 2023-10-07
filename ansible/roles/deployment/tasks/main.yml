@@ -4,12 +4,7 @@
 - name: Check and output OS version
   debug: var=ansible_os_family
 - block:
-    - name: Index update
-      apt:
-        upgrade: yes
-        update_cache: yes
-        cache_valid_time: 3600
-    - name: Install Apache2
+    - name: Install nginx
       apt:
         name: apache2
         state: latest

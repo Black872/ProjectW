@@ -1,7 +1,7 @@
 ---
 - name: Initialization playbook
-  hosts: STAGING
+  hosts: DEV
   become: true
 
   roles:
-    - { role: deployment, when: ansible_system == "Linux" }
+    - { role: docker, when: ansible_system == "Linux" }

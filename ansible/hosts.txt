@@ -1,2 +1,3 @@
-[STAGING]
-Ubuntu1 ansible_host=10.202.2.33
+[DEV]
+ubuntu1 ansible_host=10.202.2.61
+

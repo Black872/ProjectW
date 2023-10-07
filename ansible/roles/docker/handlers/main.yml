@@ -1,0 +1,13 @@
+---
+# handlers file for docker
+- name: Restart Docker
+  service: name=docker state=restarted
+  notify:
+    - Restart Docker Socket
+
+- name: Give Access to user
+  ansible.builtin.shell:
+    cmd: usermod -aG docker dark && newgrp docker
+
+- name: Restart Docker Socket
+  service: name=docker.socket state=restarted
