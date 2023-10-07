@@ -59,6 +59,17 @@
       with_sequence: count={{ container_count }}
   when: ansible_os_family == "Debian"
 
+- block:
+    - name: Waiting
+      shell: sleep 10
+    - name: Delete Containers
+      docker_container:
+        name: "{{ default_container_name }}{{ item }}"
+        state: absent
+      with_sequence: count={{ container_count }}
+
+  when: ansible_os_family == "Debian"
+
   # - block:
   #     - name: Docker install
   #       apt:
