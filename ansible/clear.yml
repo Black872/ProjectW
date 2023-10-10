@@ -1,0 +1,9 @@
+---
+#Playbook for remove conrainers
+- name: Start remove
+  hosts: DEV
+  become: true
+
+  tasks:
+    - name: Stop containers
+      shell: docker rm $(docker ps -aq)

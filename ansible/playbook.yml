@@ -5,3 +5,4 @@
 
   roles:
     - { role: docker, when: ansible_system == "Linux" }
+    - { role: nginx, when: ansible_system == "Linux" }

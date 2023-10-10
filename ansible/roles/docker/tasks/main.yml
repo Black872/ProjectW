@@ -3,90 +3,60 @@
 
 - name: Check OS Version
   debug: var=ansible_os_family
+#Block
 - block:
+    # Updating indexes on remote machines
     - name: Upgrade Index
       apt:
         upgrade: dist
+      # Install packages from /vars/ list
     - name: Install required system packages
       apt:
         name: "{{ packages }}"
-
         state: latest
         update_cache: true
   when: ansible_os_family == "Debian"
-
+# Block Install and configure docker/packages
 - block:
+    # Add GPG key
     - name: Add Docker GPG apt Key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
+      # Check lsb release version
     - name: "Ansible | Print 'lsb_release'"
       debug:
         msg: "{{ ansible_distribution_release }}"
-
+      # Add url for docker repository
     - name: Add Docker Repository
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu jammy stable
         state: present
-
-    - name: Update apt and install docker-ce
+      # Install docker-ce
+    - name: Update apt and install docker-packages
       apt:
-        name: docker-ce
+        name: "{{ docker_packages }}"
         state: latest
         update_cache: true
-
+      # Install Docker Module PIP for python
     - name: Install Docker Module for Python
       pip:
         name: docker
+      #handler will add user to docker group
       notify:
-        - Give Access to user
+        - Give Access for user
 
   when: ansible_os_family == "Debian"
   notify:
     - Restart Docker
-- block:
-    - name: Pull default Docker image
-      community.docker.docker_image:
-        name: "{{ default_container_image }}"
-        source: pull
 
-    - name: Create default containers
-      community.docker.docker_container:
-        name: "{{ default_container_name }}{{ item }}"
-        image: "{{ default_container_image }}"
-        command: "{{ default_container_command }}"
-        state: present
-      with_sequence: count={{ container_count }}
-  when: ansible_os_family == "Debian"
-
+# Block Checkin docker-installation
 - block:
-    - name: Waiting
-      shell: sleep 10
-    - name: Delete Containers
-      docker_container:
-        name: "{{ default_container_name }}{{ item }}"
-        state: absent
-      with_sequence: count={{ container_count }}
+    - name: Create Docker-Compose symlink
+      ansible.builtin.command:
+        cmd: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+        creates: /usr/bin/docker-compose
+    - name: Check Docker compose version
+      shell: docker compose version
 
   when: ansible_os_family == "Debian"
-
-  # - block:
-  #     - name: Docker install
-  #       apt:
-  #         name: docker
-  #         state: latest
-  #   when: ansible_os_family == "Debian"
-  # - block:
-  #     - name: Start docker container
-  #       docker_container:
-  #         name: my_container
-  #         state: started
-  #         image: nginx:latest
-  #         pull: true
-  #         ports:
-  #           - "5000:5000"
-
-  # - name: Remove docker container
-  #   docker_container:
-  #     name: my_container
-  #     state: absent

@@ -6,7 +6,6 @@ default_container_image: nginx:latest
 default_container_command: sudo apt update && sleep 1
 
 packages:
-  - git
   - tree
   - apt-transport-https
   - ca-certificates
@@ -15,3 +14,9 @@ packages:
   - python3-pip
   - virtualenv
   - python3-setuptools
+
+docker_packages:
+  - docker-ce
+  - docker-ce-cli
+  - containerd.io
+  - docker-buildx-plugin
