@@ -1,5 +1,4 @@
-# syntax=docker/dockerfile:1.4
-FROM --platform=$BUILDPLATFORM python:3.10-alpine AS builder
+FROM --platform=arm64 python3:10-apline AS builder
 
 WORKDIR /src
 COPY requirements.txt /src
@@ -8,7 +7,7 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 COPY . .
 
-CMD ["python3", "server.py"]
+CMD [ "python3", "server.py" ]
 
 FROM builder as dev-envs
 
@@ -22,7 +21,6 @@ addgroup -S docker
 adduser -S --shell /bin/bash --ingroup docker vscode
 EOF
 
-# install Docker tools (cli, buildx, compose)
-COPY --from=gloursdocker/docker / /
+COPY --from=gloursdocker/docker / / 
 
-CMD ["python3", "server.py"]
+CMD [ "python3", "server.py" ]

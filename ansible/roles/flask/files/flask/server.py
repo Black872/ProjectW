@@ -13,9 +13,8 @@ def todo():
     try:
         client.admin.command('ismaster')
     except:
-        return "Server not available"
-    return "Hello from the MongoDB client!\n"
-
+        return "Server is not available"
+    return "Hello from MongoDB client!\n"
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=os.environ.get("FLASK_SERVER_PORT", 9090), debug=True)

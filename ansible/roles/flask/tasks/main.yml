@@ -1,26 +1,25 @@
 ---
-# tasks file for nginx
-
-# Block
+# tasks file for flask
 - block:
-    - name: Push docker files to remote machine
+    - name: Copy docker files to remote machine
       copy:
         src: "{{ item }}"
-        dest: "{{ docker_files_dest }}"
-        mode: 666
+        dest: /home/dark/docker/flask
+        mode: mode 666
       loop:
         - .
 
     - name: Tear down existing services
       community.docker.docker_compose:
-        project_src: "{{ docker_compose_files_dest }}"
+        project_src: "{{ docker_compose_dest }}"
         state: absent
 
-    - name: Create and start services
+    - name: Build db+flask containers
       community.docker.docker_compose:
-        project_src: "{{ docker_compose_files_dest }}"
+        project_src: "{{ docker_compose_dest }}"
       register: output
     - name: Show result
       debug:
         var: output
+
   when: ansible_os_family == "Debian"

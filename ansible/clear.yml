@@ -7,3 +7,5 @@
   tasks:
     - name: Stop containers
       shell: docker rm $(docker ps -aq)
+    - name: remove images
+      shell: docker rmi $(docker images -q)

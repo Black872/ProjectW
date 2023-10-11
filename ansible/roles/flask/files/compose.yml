@@ -26,4 +26,5 @@ services:
       -  mongo  
 
   mongo:
-    image: mongo
+    image: mongo:latest
+    restart: always
