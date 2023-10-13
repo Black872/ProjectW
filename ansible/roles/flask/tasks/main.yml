@@ -4,8 +4,8 @@
     - name: Copy docker files to remote machine
       copy:
         src: "{{ item }}"
-        dest: /home/dark/docker/flask
-        mode: mode 666
+        dest: "{{ docker_files_dest }}"
+        mode: 666
       loop:
         - .
 

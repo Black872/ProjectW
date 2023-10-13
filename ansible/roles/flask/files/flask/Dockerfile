@@ -1,4 +1,4 @@
-FROM --platform=arm64 python3:10-apline AS builder
+FROM python:3.10 AS builder
 
 WORKDIR /src
 COPY requirements.txt /src
