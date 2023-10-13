@@ -1,9 +1,5 @@
 ---
 # vars file for docker
-container_count: 2
-default_container_name: docker
-default_container_image: nginx:latest
-default_container_command: sudo apt update && sleep 1
 
 packages:
   - tree

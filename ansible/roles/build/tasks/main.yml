@@ -1,0 +1,22 @@
+---
+# tasks file for build
+- block:
+    - name: copy dockerfiles to remote server
+      copy:
+        src: "{{ item }}"
+        dest: "{{ docker_destin }}"
+        mode: 666
+      loop:
+        - .
+
+    - name: docker compose tear down services
+      community.docker.docker_compose:
+        project_src: "{{ docker_destin }}"
+        state: absent
+
+    - name: docker compose build
+      community.docker.docker_compose:
+        project_src: "{{ docker_destin }}"
+        build: true
+        state: present
+  when: ansible_os_family == "Debian"
