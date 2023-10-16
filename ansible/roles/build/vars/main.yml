@@ -1,0 +1,7 @@
+---
+# vars file for build
+remote_docker_compose_dest: /home/dark/docker
+item_builder_list:
+  - flask
+  - nginx
+  - compose.yml

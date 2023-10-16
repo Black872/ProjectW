@@ -1,4 +1,0 @@
----
-# vars file for flask
-docker_files_dest: /home/dark/docker/
-docker_compose_dest: /home/dark/docker/

@@ -16,7 +16,9 @@ packages:
   - python3-setuptools
 
 docker_packages:
+  - docker
   - docker-ce
   - docker-ce-cli
   - containerd.io
   - docker-buildx-plugin
+  - docker-compose

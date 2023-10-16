@@ -1,0 +1,24 @@
+---
+# tasks file for build
+- block:
+    - name: Check and copy dockerfiles to remote
+      copy:
+        src: "{{ item }}"
+        dest: "{{ remote_docker_compose_dest }}"
+        mode: 666
+      loop: "{{ item_builder_list }}"
+
+    - name: Tear down docker containers
+      community.docker.docker_compose:
+        project_src: "{{ remote_docker_compose_dest }}"
+        state: absent
+      register: output
+
+    - name: Build docker-compose containers
+      shell:
+        cmd: docker-compose --project-directory "{{ remote_docker_compose_dest }}" build
+    - name: Up docker-compose containers
+      shell:
+        cmd: docker-compose --project-directory "{{ remote_docker_compose_dest }}" up -d
+
+  when: ansible_os_family == "Debian"

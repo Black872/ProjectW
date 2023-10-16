@@ -1,5 +1,0 @@
----
-# vars file for nginx
-
-docker_files_dest: /home/dark/docker/nginx
-docker_compose_files_dest: /home/dark/docker/nginx/

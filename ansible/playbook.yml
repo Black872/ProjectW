@@ -5,5 +5,4 @@
 
   roles:
     #    - { role: docker, when: ansible_system == "Linux" }
-    - { role: flask, when: ansible_system == "Linux" }
-#    - { role: nginx, when: ansible_system == "Linux" }
+    - { role: build, when: ansible_system == "Linux" }
