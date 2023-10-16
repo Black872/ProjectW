@@ -1,4 +1,4 @@
 ---
 # vars file for build
 
-docker_destin: /home/dark/docker
+docker_destin: /home/dark/projectgit
