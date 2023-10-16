@@ -26,4 +26,15 @@ services:
       -  mongo  
 
   mongo:
-    image: mongo
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${LOG_DB_ROOT_USER} 
+      MONGO_INITDB_ROOT_PASSWORD: ${LOG_DB_ROOT_PASS}
+    volumes:
+      - ./db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    networks:
+      - main
+  
+
+      
+     
