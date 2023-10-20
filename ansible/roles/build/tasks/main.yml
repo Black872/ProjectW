@@ -5,7 +5,7 @@
       copy:
         src: "{{ item }}"
         dest: "{{ docker_destin }}"
-        mode: 666
+        mode: preserve
       loop:
         - .
 
@@ -13,6 +13,10 @@
       community.docker.docker_compose:
         project_src: "{{ docker_destin }}"
         state: absent
+
+    - name: cleanup docker old files
+      shell:
+        cmd: "docker system prune -af --volumes"
 
     - name: docker compose build
       community.docker.docker_compose:
