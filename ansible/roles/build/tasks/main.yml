@@ -9,14 +9,14 @@
       loop:
         - .
 
-    - name: docker compose tear down services
-      community.docker.docker_compose:
-        project_src: "{{ docker_destin }}"
-        state: absent
+    # - name: docker compose tear down services
+    #   community.docker.docker_compose:
+    #     project_src: "{{ docker_destin }}"
+    #     state: absent
 
-    - name: cleanup docker old files
-      shell:
-        cmd: "docker system prune -af --volumes"
+    # - name: cleanup docker old files
+    #   shell:
+    #     cmd: "docker system prune -af --volumes"
 
     - name: docker compose build
       community.docker.docker_compose:

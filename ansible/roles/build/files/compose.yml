@@ -12,19 +12,52 @@ services:
       - frontend
     depends_on:
       - back
+      - db
     ports:
       - 80:80
 
   back:
     container_name: php1
     build:
-      context: nginx
+      context: ./www/web
     volumes:
       - ./www/web:/var/www/html
     working_dir: /var/www/html
     entrypoint: ["php-fpm"]
     networks:
       - frontend
+    depends_on:
+      - db
+  
+  db:
+    container_name: mysql1
+    image: mysql
+    restart: always
+    volumes:
+      - ./database:/var/lib/mysql
+    working_dir: /var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=mydb
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user
+    networks:
+      - frontend
+    ports:
+      - 3306:3306
+
+  
+  phpmyadm:
+    container_name: phpmyadmin1
+    image: phpmyadmin
+    environment:
+      - PMA_HOST=mysql1
+    networks:
+      - frontend
+    depends_on:
+      - db
+    ports:
+      - 1500:80
 
 networks:
   frontend:
@@ -36,5 +69,6 @@ networks:
     name: custom_back_end1
     driver: bridge
     attachable: true
+
 
 
