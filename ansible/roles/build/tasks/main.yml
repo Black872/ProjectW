@@ -1,0 +1,22 @@
+---
+# tasks file for build
+- block:
+    - name: Copy docker files to remote server
+      copy:
+        src: "{{ item }}"
+        dest: "{{ docker_files_dest }}"
+        mode: preserve
+      loop:
+        - .
+
+    - name: Set permission to docker compose
+      shell:
+        cmd: chmod +x /usr/local/bin/docker-compose
+
+    - name: Build docker compose
+      community.docker.docker_compose:
+        project_src: "{{ docker_files_dest }}"
+        build: true
+        state: present
+
+  when: ansible_os_family == "Debian"

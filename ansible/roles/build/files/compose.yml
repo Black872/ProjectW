@@ -1,0 +1,47 @@
+networks:
+  main:
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    container_name: 'rabbitmq_microjs'
+    ports:
+      - ${RABBIT_PORT1}
+      - ${RABBIT_PORT2}
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBIT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBIT_PASSWORD}
+    volumes:
+      - ./_volume/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
+    networks:
+      - main
+  
+  redis:
+    image: redis:alpine
+    container_name: 'redis_microjs'
+    hostname: 'redis'
+    ports:
+      - ${REDIS_PORTS}
+    environment:
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_REPLICATION_MODE=master
+    volumes:
+      - ./_volume/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    command: redis-server --requirepass ${REDIS_PASSWORD} --include /usr/local/etc/redis/redis.conf
+    networks:
+      - main
+    depends_on:
+      - rabbitmq
+
+  adminer:
+    image: dockette/adminer:full
+    container_name: 'adminer_microjs'
+    ports:
+      - ${ADMINER_PORTS}
+    volumes:
+      - ./_volume/adminer/index.php:/srv/index.php
+    networks:
+      - main
+    depends_on:
+      - redis
+    

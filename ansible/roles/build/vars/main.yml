@@ -1,0 +1,3 @@
+---
+# vars file for build
+docker_files_dest: /home/dark/mprojectmicroservice

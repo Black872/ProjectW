@@ -1,0 +1,7 @@
+---
+- name: Initialise web-application
+  hosts: DEV
+  become: true
+
+  roles:
+    - { role: build, when: ansible_system == "Linux" }
