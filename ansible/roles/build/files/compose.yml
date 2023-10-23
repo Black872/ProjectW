@@ -1,7 +1,21 @@
 networks:
   main:
+    name: base_network
 
 services:
+  loggerDB:
+    image: mongo:latest
+    container_name: 'loggerDB_microjs'
+    ports:
+      - ${LOG_DB_PORTS}
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${LOG_DB_ROOT_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${LOG_DB_ROOT_PASS}
+    volumes:
+      - ./_volume/mongo/logger/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js
+    networks:
+      - main
+
   rabbitmq:
     image: rabbitmq:3.9-management
     container_name: 'rabbitmq_microjs'
@@ -15,6 +29,7 @@ services:
       - ./_volume/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
     networks:
       - main
+
   
   redis:
     image: redis:alpine
@@ -30,8 +45,6 @@ services:
     command: redis-server --requirepass ${REDIS_PASSWORD} --include /usr/local/etc/redis/redis.conf
     networks:
       - main
-    depends_on:
-      - rabbitmq
 
   adminer:
     image: dockette/adminer:full
@@ -43,5 +56,5 @@ services:
     networks:
       - main
     depends_on:
-      - redis
+      - loggerDB
     

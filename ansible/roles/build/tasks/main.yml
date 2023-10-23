@@ -9,9 +9,17 @@
       loop:
         - .
 
+    - name: Tear down and clear old docker files
+      community.docker.docker_compose:
+        project_src: "{{ docker_files_dest }}"
+        state: absent
+    - name: prune volume
+      shell:
+        cmd: docker volume prune -af
+
     - name: Set permission to docker compose
       shell:
-        cmd: chmod +x /usr/local/bin/docker-compose
+        cmd: chmod +x {{ docker_files_dest }}/compose.yml
 
     - name: Build docker compose
       community.docker.docker_compose:
