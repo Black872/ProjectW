@@ -65,7 +65,7 @@ services:
             cpus: '1'
             memory: 4G
       
-    adminer:
+    pgaminer:
       image: dpage/pgadmin4:7.2
       container_name: 'pgadmin_cont'
       environment:
