@@ -1,3 +1,4 @@
 [DEV]
-ubuntu1 ansible_host=10.202.2.55
+ubuntu1 ansible_host=10.202.2.46
+workdev ansible_host=10.202.2.29
 

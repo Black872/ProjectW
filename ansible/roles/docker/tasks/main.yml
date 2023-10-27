@@ -1,0 +1,62 @@
+---
+# tasks file for docker
+
+- name: Check OS Version
+  debug: var=ansible_os_family
+#Block
+- block:
+    # Updating indexes on remote machines
+    - name: Upgrade Index
+      apt:
+        upgrade: dist
+      # Install packages from /vars/ list
+    - name: Install required system packages
+      apt:
+        name: "{{ packages }}"
+        state: latest
+        update_cache: true
+  when: ansible_os_family == "Debian"
+# Block Install and configure docker/packages
+- block:
+    # Add GPG key
+    - name: Add Docker GPG apt Key
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      # Check lsb release version
+    - name: "Ansible | Print 'lsb_release'"
+      debug:
+        msg: "{{ ansible_distribution_release }}"
+      # Add url for docker repository
+    - name: Add Docker Repository
+      apt_repository:
+        repo: deb https://download.docker.com/linux/ubuntu jammy stable
+        state: present
+      # Install docker-ce
+    - name: Update apt and install docker-packages
+      apt:
+        name: "{{ docker_packages }}"
+        state: latest
+        update_cache: true
+      # Install Docker Module PIP for python
+    - name: Install Docker Module for Python
+      pip:
+        name: docker
+      #handler will add user to docker group
+      notify:
+        - Give Access for user
+
+  when: ansible_os_family == "Debian"
+  notify:
+    - Restart Docker
+
+# Block Checkin docker-installation
+- block:
+    - name: Create Docker-Compose symlink
+      ansible.builtin.command:
+        cmd: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+        creates: /usr/bin/docker-compose
+    - name: Check Docker compose version
+      shell: docker compose version
+
+  when: ansible_os_family == "Debian"
