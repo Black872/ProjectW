@@ -4,6 +4,7 @@ container_count: 2
 default_container_name: docker
 default_container_image: nginx:latest
 default_container_command: sudo apt update && sleep 1
+create_remote_workfolder: /home/dark/
 
 packages:
   - tree
@@ -17,6 +18,7 @@ packages:
 
 docker_packages:
   - docker
+  - docker-compose-plugin
   - docker-ce
   - docker-ce-cli
   - containerd.io

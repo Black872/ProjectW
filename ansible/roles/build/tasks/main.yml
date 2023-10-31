@@ -1,5 +1,5 @@
 ---
-# tasks file for build
+# tasks file for build role
 - block:
     - name: Copy docker files to remote server
       copy:
@@ -13,9 +13,11 @@
       community.docker.docker_compose:
         project_src: "{{ docker_files_dest }}"
         state: absent
+      tags: docker_prune
     - name: prune volume
       shell:
         cmd: docker volume prune -af
+      tags: docker_prune
 
     - name: Set permission to docker compose
       shell:
