@@ -28,13 +28,6 @@
       debug:
         msg: "{{ ansible_distribution_release }}"
       # Add url for docker repository
-    - name: libc6 check
-      shell:
-        cmd: apt show -a libc6
-      register: lib6output
-    - name: Debug libc6
-      debug:
-        var: lib6output
     - name: Add Docker Repository
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu jammy stable
@@ -52,10 +45,18 @@
       #handler will add user to docker group
       notify:
         - Give Access for user
-
+- block:
+    - name: Check is workfolder exist
+      shell: ls
+      register: workfolder_out
+    - name: debug workfodler 
+      debug:
+        var: workfolder_out.stdout_lines[0]
+      #create folder for docker compose files
     - name: Create workfolder on remote
       file:
-        path: "${{ create_remote_workfolder }}"
+        name: ecomerce
+        path: /home/dark/ecomerce
         state: directory
         mode: "0755"
 

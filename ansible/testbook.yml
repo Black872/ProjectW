@@ -4,13 +4,18 @@
   become: true
 
   tasks:
-    - name: libc6 check
-      shell:
-        cmd: apt show -a libc6
-      register: lib6output
-    - name: Debug libc6
+    - name: Check is workfolder exist
+      shell: ls
+      register: workfolder_out
+
+    - name: debug workfodler 
       debug:
-        msg: "{{ lib6output.stdout_lines[1] }}"
-    - name: install libc6 2.35
-      shell:
-        cmd: apt install libc6="2.35-0ubuntu3.4"
+        var: workfolder_out.stdout_lines[0]
+      #create folder for docker compose files
+    - name: Create workfolder on remote
+      file:
+        name: ecomerce
+        path: /home/dark/ecomerce
+        state: directory
+        mode: "0755"
+      when: workfolder_out
