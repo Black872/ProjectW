@@ -18,10 +18,9 @@
       shell:
         cmd: docker volume prune -af
       tags: docker_prune
-
-    - name: Set permission to docker compose
-      shell:
-        cmd: chmod +x {{ docker_files_dest }}/compose.yml
+      # ?????????????????????? вызовется ли нотифай после роли
+      notify:
+        - Set permission to docker compose
 
     - name: Build docker compose
       community.docker.docker_compose:

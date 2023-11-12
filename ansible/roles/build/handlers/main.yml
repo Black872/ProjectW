@@ -1,2 +1,5 @@
 ---
 # handlers file for build
+- name: Set permission to docker compose
+  shell:
+    cmd: chmod +x {{ docker_files_dest }}/compose.yml

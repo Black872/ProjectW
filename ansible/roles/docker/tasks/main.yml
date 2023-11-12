@@ -3,49 +3,58 @@
 
 - name: Check OS Version
   debug: var=ansible_os_family
-#Block
+# Block
 - block:
     # Updating indexes on remote machines
     - name: Upgrade Index
       apt:
         upgrade: dist
-      # Install packages from /vars/ list
+    # Install packages from /vars/ list
     - name: Install required system packages
       apt:
         name: "{{ packages }}"
         state: latest
         update_cache: true
   when: ansible_os_family == "Debian"
-# Block Install and configure docker/packages
+# Check lsb_release
+- name: Ansible | Print 'lsb_release'
+  debug:
+    msg: "{{ ansible_distribution_release }}"
+  register: lsb_release
+- name: lsb_release is
+  debug:
+    var: lsb_release
+# Block Install and configure docker/packages when lsb_release == jammy
 - block:
     # Add GPG key
     - name: Add Docker GPG apt Key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
-      # Check lsb release version
+    # Check lsb release version
     - name: "Ansible | Print 'lsb_release'"
       debug:
         msg: "{{ ansible_distribution_release }}"
-      # Add url for docker repository
+    # Add url for docker repository
     - name: Add Docker Repository
       apt_repository:
         repo: deb https://download.docker.com/linux/ubuntu jammy stable
         state: present
-      # Install docker-ce
+    # Install docker-ce
     - name: Update apt and install docker-packages
       apt:
         name: "{{ docker_packages }}"
         state: latest
         update_cache: true
-      # Install Docker Module PIP for python
+    # Install Docker Module PIP for python
     - name: Install Docker Module for Python
       pip:
         name: docker
-      #handler will add user to docker group
+      # handler will add user to docker group
       notify:
         - Give Access to user
-        - Restart Docker
+  when: lsb_release.msg == "jammy"
+# Block creating workfolder for future
 - block:
     - name: Check is workfolder exist
       shell: ls
@@ -53,24 +62,26 @@
     - name: debug workfodler
       debug:
         var: workfolder_out.stdout_lines
-      #create folder for docker compose files
+    # Сreate folder for docker compose files
     - name: Create workfolder on remote
       file:
         name: ecomerce
         path: "{{ create_remote_workfolder }}"
         state: directory
         mode: "0755"
-      notify:
-        - Restart Docker
+      when: workfolder_out.stdout_lines[3] != "ecomerce"
   when: ansible_os_family == "Debian"
 
-# Block Checkin docker-installation
-- block:
-    - name: Create Docker-Compose symlink
-      ansible.builtin.command:
-        cmd: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-        creates: /usr/bin/docker-compose
-    - name: Check Docker compose version
-      shell: docker compose version
-
-  when: ansible_os_family == "Debian"
+# Create docker-compose symlink and check is docker successfuly installed
+- name: Create Docker-Compose symlink
+  ansible.builtin.command:
+    cmd: ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+    creates: /usr/bin/docker-compose
+- name: Check Docker compose version
+  shell: docker-compose version
+  register: docker_ver
+- name: debug docker_ver
+  debug:
+    var: docker_ver
+  notify:
+    - Restart Docker
