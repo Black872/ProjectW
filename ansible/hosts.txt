@@ -1,5 +1,5 @@
 [DEV]
 #ubuntu1 ansible_host=10.202.2.46
-#workdev ansible_host=10.202.2.40
+workdev ansible_host=10.119.116.203
 
-devhome ansible_host=192.168.0.102
+#devhome ansible_host=192.168.0.102

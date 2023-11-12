@@ -135,15 +135,5 @@ services:
   #   networks:
   #     - main
 
-  # adminer:
-  #   image: dockette/adminer:full
-  #   container_name: 'adminer_microjs'
-  #   ports:
-  #     - ${ADMINER_PORTS}
-  #   volumes:
-  #     - ./_volume/adminer/index.php:/srv/index.php
-  #   networks:
-  #     - main
-  #   depends_on:
-  #     - loggerDB
+
     

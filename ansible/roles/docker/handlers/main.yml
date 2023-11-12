@@ -7,5 +7,4 @@
 
   # give access to user
 - name: Give Access to user
-  ansible.builtin.shell:
-    cmd: usermod -aG docker dark && newgrp docker
+  shell: newgrp docker && usermod -aG docker dark

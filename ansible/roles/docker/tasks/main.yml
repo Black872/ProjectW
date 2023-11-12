@@ -44,25 +44,25 @@
         name: docker
       #handler will add user to docker group
       notify:
-        - Give Access for user
+        - Give Access to user
+        - Restart Docker
 - block:
     - name: Check is workfolder exist
       shell: ls
       register: workfolder_out
-    - name: debug workfodler 
+    - name: debug workfodler
       debug:
-        var: workfolder_out.stdout_lines[0]
+        var: workfolder_out.stdout_lines
       #create folder for docker compose files
     - name: Create workfolder on remote
       file:
         name: ecomerce
-        path: /home/dark/ecomerce
+        path: "{{ create_remote_workfolder }}"
         state: directory
         mode: "0755"
-
+      notify:
+        - Restart Docker
   when: ansible_os_family == "Debian"
-  notify:
-    - Restart Docker
 
 # Block Checkin docker-installation
 - block:
