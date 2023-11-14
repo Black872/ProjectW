@@ -1,0 +1,15 @@
+---
+- name: Playbook clearing
+  hosts: DEV
+  become: true
+
+  tasks:
+    - name: Tear down and clear old docker files
+      community.docker.docker_compose:
+        project_src: /home/dark/ecomerce
+        state: absent
+      tags: docker_prune
+    - name: prune volume
+      shell:
+        cmd: docker volume prune -af
+      tags: docker_prune

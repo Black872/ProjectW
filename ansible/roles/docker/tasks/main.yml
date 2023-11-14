@@ -69,7 +69,7 @@
         path: "{{ create_remote_workfolder }}"
         state: directory
         mode: "0755"
-      when: workfolder_out.stdout_lines[3] != "ecomerce"
+      when: workfolder_out.stdout_lines[3] != "ecomerce" and workfodler_out.stdout_lines[0] != "ecomerce"
   when: ansible_os_family == "Debian"
 
 # Create docker-compose symlink and check is docker successfuly installed

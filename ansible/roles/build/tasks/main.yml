@@ -8,16 +8,6 @@
         mode: preserve
       loop:
         - .
-
-    - name: Tear down and clear old docker files
-      community.docker.docker_compose:
-        project_src: "{{ docker_files_dest }}"
-        state: absent
-      tags: docker_prune
-    - name: prune volume
-      shell:
-        cmd: docker volume prune -af
-      tags: docker_prune
       # ?????????????????????? вызовется ли нотифай после роли
       notify:
         - Set permission to docker compose
