@@ -108,13 +108,9 @@ services:
     
     backend: 
       container_name: back_cont
-      image: python:3
-      command:
-        - "touch /usr/src/app"
-        - "pip install -r requirements.txt"
+      build: ./backend
       volumes:
         - ./backend:/usr/src/app
-      working_dir: /usr/src/app
       ports:
         - 8000:8000
       depends_on:
