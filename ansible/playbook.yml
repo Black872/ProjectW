@@ -1,0 +1,7 @@
+---
+- name: Initialization playbook
+  hosts: DEV
+  become: true
+
+  roles:
+    - { role: build, when: ansible_system == "Linux" }

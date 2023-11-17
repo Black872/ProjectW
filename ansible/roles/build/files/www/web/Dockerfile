@@ -1,0 +1,6 @@
+FROM php:8.1-fpm
+
+RUN apt update
+RUN apt install -y curl git
+
+RUN docker-php-ext-install pdo pdo_mysql

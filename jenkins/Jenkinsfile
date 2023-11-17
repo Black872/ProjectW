@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '10'))
+    }
+
+    stages {
+        stage('Build') {
+            
+            steps {
+                echo 'git clone start'
+                sh 'git clone -b test git@github.com:Black872/ProjectW.git ~/gclone'
+                sh 'ls -la'
+                echo 'Start Ansible playbook..'
+                sh 'ansible-playbook ~/gclone/ansible/playbook.yml'
+                echo 'Complete'
+                sh 'sleep 2'
+                echo '------------------------'
+                sh 'rm -r ~/gclone'
+                echo "Build Id: ${BUILD_ID}"
+                
+            
+            }
+
+        }
+        
+
+    }
+}

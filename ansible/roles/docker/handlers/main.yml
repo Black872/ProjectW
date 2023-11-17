@@ -1,0 +1,11 @@
+---
+# handlers file for docker
+
+# restart docker service
+- name: Restart Docker
+  service: name=docker state=restarted
+
+  # give access to user
+- name: Give Access to user
+  ansible.builtin.shell:
+    cmd: usermod -aG docker dark && newgrp docker

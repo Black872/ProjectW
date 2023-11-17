@@ -1,0 +1,10 @@
+---
+#Playbook for remove conrainers
+- name: Start remove
+  hosts: DEV
+  become: true
+
+  tasks:
+    - name: cleanup docker old files
+      shell:
+        cmd: "docker system prune -af --volumes"
